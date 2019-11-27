@@ -1,0 +1,44 @@
+{
+  "name": "@epok.tech/gl-histogram-scatter",
+  "version": "0.0.0",
+  "description": "Custom histograms using scatter approach in WebGL.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/keeffEoghan/gl-histogram-scatter.git"
+  },
+  "author": "Eoghan O'Keeffe <epok.tech@gmail.com>",
+  "license": "MIT",
+  "engines": {
+    "node": "10.16.3",
+    "yarn": "1.19.0"
+  },
+  "scripts": {
+    "start": "yarn run dev",
+    "dev": "parcel --log-level verbose ./example/index.html",
+    "docs": "rm -rf docs/ && parcel build ./example/index.html -d ./docs/ --public-url ./"
+  },
+  "dependencies": {
+    "@epok.tech/gl-screen-triangle": "^1.1.0",
+    "array-utils": "https://github.com/keeffEoghan/array-utils",
+    "glsl-luma": "^1.0.1",
+    "glsl-map": "^1.0.1"
+  },
+  "devDependencies": {
+    "glslify-bundle": "^5.1.1",
+    "glslify-deps": "^1.3.1",
+    "parcel": "^1.12.4",
+    "regl": "^1.3.13"
+  },
+  "bugs": {
+    "url": "https://github.com/keeffEoghan/gl-histogram-scatter/issues"
+  },
+  "homepage": "https://github.com/keeffEoghan/gl-histogram-scatter#readme",
+  "keywords": [
+    "webgl",
+    "regl",
+    "gpgpu",
+    "postprocessing",
+    "glsl"
+  ]
+}

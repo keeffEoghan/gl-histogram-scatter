@@ -1,0 +1,9 @@
+body {
+    cursor: pointer;
+}
+
+pre {
+    display: inline-block;
+    margin: 0;
+    transform: translate(50vw, 50vh) translate(-50%, -50%);
+}
