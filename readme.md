@@ -1,6 +1,6 @@
 # `gl-histogram-scatter`
 
-WebGL histograms, highly parallel scatter approach using vertex shader samples with [`regl`](https://github.com/regl-project/regl/), based on [AMD's _Efficient Histogram Generation Using Scattering on GPUs_](https://developer.amd.com/wordpress/media/2012/10/GPUHistogramGeneration_preprint.pdf).
+WebGL histograms, highly parallel scatter approach using vertex shader samples, based on [AMD's _Efficient Histogram Generation Using Scattering on GPUs_](https://developer.amd.com/wordpress/media/2012/10/GPUHistogramGeneration_preprint.pdf) - BYORenderer (based on [`regl`](https://github.com/regl-project/regl/)).
 
 Allows custom operations for histogram heuristics.
 
