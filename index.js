@@ -5,15 +5,21 @@ import defaultFrag from './index.frag.glsl';
 
 export const optionalExtensions = ['OES_texture_half_float', 'OES_texture_float'];
 
-export const splitDataMax = 4;
 export const bitSize = 2;
 export const byteSize = 8;
 
 /**
- * Map from texture data type to how many multiples of it should be made to get enough
- * precision. 1 means no scaling. Assumes 4 is the most scaling needed, could be more.
+ * Gives the range of values available for a given data scale.
  *
- * @todo Not sure this makes sense, verify.
+ * @see dataBytesMap
+ *
+ * @param {number} splitData Number of bytes in the data type - see `dataBytesMap`.
+ * @returns {number} The number of values in the data type.
+ */
+export const maxForBytes = (bytes) => bitSize**(byteSize*bytes);
+
+/**
+ * Map from texture data type to the number of bytes they have.
  *
  * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray#TypedArray_objects
  * @see https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/texImage2D
@@ -21,8 +27,29 @@ export const byteSize = 8;
  *
  * @type {object.<number>}
  */
+export const valueMinMap = {
+    // Float types (should usually be large enough)
+    ['float']: 1/maxForBytes(4),
+    ['float32']: 1/maxForBytes(4),
+    ['half float']: 1/maxForBytes(2),
+    ['float16']: 1/maxForBytes(2),
+
+    // Integer types (may need more scaling...)
+    ['uint32']: 1/maxForBytes(4),
+    ['uint16']: 1/maxForBytes(2),
+    ['uint8']: 1/maxForBytes(1)
+};
+
+/**
+ * Map from texture data type to how many multiples of it should be made to get enough
+ * precision. 1 means no scaling. Assumes 4 is the most scaling needed, could be more.
+ *
+ * @see valueMinMap
+ *
+ * @type {object.<number>}
+ */
 export const splitDataMap = {
-    max: splitDataMax,
+    max: 4,
     min: 1,
 
     // Float types (should usually be large enough)
@@ -73,31 +100,19 @@ export const blendMap = {
 export const defaultBlend = blendMap.additive;
 
 /**
- * Gives the range of values available for a given data scale.
- *
- * @see splitDataMap
- * @todo Not sure if this makes total sense.
- *
- * @param {number} splitData Number of bytes in the data type - see `splitDataMap`.
- * @returns {number} The number of values in the data type.
- */
-export const getDataMax = (bytes) => bitSize**(byteSize*bytes);
-
-/**
  * The minimum alpha we can blend unique values over each other for the data type,
  * without saturating the bins or losing precision.
  *
- * @param {object.<object.<[number]>, [number]>} props Properties.
- * @param {number} [props.color] Explicitly-set color, if given - derived otherwise.
- * @param {number} [props.bins.height] Height of the `bins` output framebuffer.
+ * @see valueMinMap
+ *
+ * @param {object.<(number | object.<array.<object.<number>>>)>} props Properties.
+ * @param {number} [props.valueMin] Explicitly-set minimum value; derived if not given.
+ * @param {number} [props.bins.color[0].type] Height of the `bins` output framebuffer.
  *
  * @returns {number} The count as derived from the given properties.
  */
-export const getColorMin = ({
-        bins: { height: splitData },
-        colorMin = 1/getDataMax(splitDataMax/splitData)
-    }) =>
-    colorMin;
+export const getValueMin = ({ bins: { color: c }, valueMin }) =>
+    (valueMin || valueMinMap[c[0].type]);
 
 /**
  * The number of vertices to be drawn, derived by default from the number of pixels in
@@ -181,6 +196,7 @@ export function getHistogram(api, state, out = {}) {
     out.vert = vert;
     out.frag = frag;
     out.data = data;
+    out.mask = mask;
     out.indexes = indexes;
     out.blend = blend;
     out.primitive = primitive;
@@ -208,8 +224,6 @@ export function getHistogram(api, state, out = {}) {
                 // number we may split values across, for a valid framebuffer attachment.
                 channels = Math.max(splitChannels, 3)
             } = state;
-
-        console.log(JSON.stringify({ bins, dataType, splitData, channels }));
 
         out.bins = framebuffer({
             color: texture({
@@ -253,7 +267,7 @@ export function getHistogram(api, state, out = {}) {
 
                 return shape;
             },
-            colorMin: (c, props) => getColorMin(props)
+            valueMin: (c, props) => getValueMin(props)
         },
         blend,
         primitive: prop('primitive'),
@@ -261,7 +275,7 @@ export function getHistogram(api, state, out = {}) {
         count: (c, props) => getCount(props),
         framebuffer: prop('bins')
     };
-    
+
     if(typeof gl === 'function') {
         const draw = gl(command);
 

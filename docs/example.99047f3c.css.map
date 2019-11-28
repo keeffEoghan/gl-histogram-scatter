@@ -1,0 +1,1 @@
+{"version":3,"sources":["index.css"],"names":[],"mappings":"AAAA,KACI,iBACJ,CAEA,IACI,oBAAqB,CACrB,QAAS,CACT,mDACJ","file":"example.99047f3c.css","sourceRoot":"../example","sourcesContent":["body {\n    cursor: all-scroll;\n}\n\npre {\n    display: inline-block;\n    margin: 0;\n    transform: translate(50vw, 50vh) translate(-50%, -50%);\n}\n"]}

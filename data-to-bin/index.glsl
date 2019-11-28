@@ -9,6 +9,8 @@
 // The following may be overriden by macros to mix in other functions into this logic.
 
 #ifndef binIndex
+    // #pragma glslify: binIndex = require('./bin-index-luma');
+    // #pragma glslify: binIndex = require('./bin-index-length');
     #pragma glslify: binIndex = require('./bin-index-max');
 #endif
 

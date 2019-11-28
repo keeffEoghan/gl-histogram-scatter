@@ -703,10 +703,8 @@
   dependencies:
     commander "^2.15.1"
 
-"@epok.tech/gl-screen-triangle@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@epok.tech/gl-screen-triangle/-/gl-screen-triangle-1.1.0.tgz#b0b75d8294945a74bae36e206edc481117047c60"
-  integrity sha512-s9vUC50ta4S+cg+HHWrQDKGUhVagZgWBYcm2Bo6seXAhlIaDxm1YTXdWpfK/Tf5EIwuSb2+N1/wtlpuLiCgytw==
+"@epok.tech/gl-screen-triangle@../gl-screen-triangle":
+  version "1.1.1"
 
 "@iarna/toml@^2.2.0":
   version "2.2.3"
@@ -2382,6 +2380,11 @@ glsl-map@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/glsl-map/-/glsl-map-1.0.1.tgz#5ff0df638876bb66fdad010a3c641479eb9015a5"
   integrity sha1-X/DfY4h2u2b9rQEKPGQUeeuQFaU=
+
+glsl-noise@^0.0.0:
+  version "0.0.0"
+  resolved "https://registry.yarnpkg.com/glsl-noise/-/glsl-noise-0.0.0.tgz#367745f3a33382c0eeec4cb54b7e99cfc1d7670b"
+  integrity sha1-NndF86MzgsDu7Ey1S36Zz8HXZws=
 
 glsl-resolve@0.0.1:
   version "0.0.1"
