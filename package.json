@@ -1,7 +1,7 @@
 {
   "name": "@epok.tech/gl-histogram-scatter",
   "version": "0.0.0",
-  "description": "Custom histograms using scatter approach in WebGL BYORenderer (based on `regl`).",
+  "description": "Custom histograms using scatter approach in WebGL - BYORenderer (based on `regl`).",
   "main": "index.js",
   "repository": {
     "type": "git",
