@@ -703,8 +703,10 @@
   dependencies:
     commander "^2.15.1"
 
-"@epok.tech/gl-screen-triangle@../gl-screen-triangle":
-  version "1.1.1"
+"@epok.tech/gl-screen-triangle@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@epok.tech/gl-screen-triangle/-/gl-screen-triangle-1.1.0.tgz#b0b75d8294945a74bae36e206edc481117047c60"
+  integrity sha512-s9vUC50ta4S+cg+HHWrQDKGUhVagZgWBYcm2Bo6seXAhlIaDxm1YTXdWpfK/Tf5EIwuSb2+N1/wtlpuLiCgytw==
 
 "@iarna/toml@^2.2.0":
   version "2.2.3"

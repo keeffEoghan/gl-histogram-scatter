@@ -2,10 +2,8 @@ precision highp float;
 
 uniform sampler2D test;
 uniform sampler2D histogram;
-uniform float valueMin;
 uniform float fade;
 uniform float bars;
-uniform float scale;
 
 varying vec2 uv;
 
@@ -19,13 +17,11 @@ void main() {
 
     gl_FragColor = pixel;
 
-    vec4 bin = texture2D(histogram, st)*scale;
-    // vec4 bin = log(texture2D(histogram, st)+scale);
-    // vec4 bin = pow(texture2D(histogram, st), vec4(scale));
+    vec4 bin = texture2D(histogram, st);
 
     vec4 bar = mix(barOut, barIn, step(uv.y, bin.r+bin.g+bin.b+bin.a));
 
     gl_FragColor = mix(clamp(pixel, 0.0, 1.0),
-        mix(clamp(bin, 0.0, 1.0), clamp(bar, 0.0, 1.0), bars),
+        mix(clamp(vec4(bin.rgb, 1.0), 0.0, 1.0), clamp(bar, 0.0, 1.0), bars),
         fade);
 }

@@ -34,9 +34,12 @@ const drawTest = regl({
 
 const histogram = self.histogram = getHistogram(regl, {
         data: framebuffer.color[0],
-        // mask: [1, 1, 1, 0]
+        // mask: [1, 1, 1, 0],
+        // splitChannels: 3
     },
     0);
+
+let scale = 1;
 
 const drawView = regl({
     vert,
@@ -45,9 +48,7 @@ const drawView = regl({
     uniforms: {
         test: regl.prop('framebuffer'),
         histogram: regl.prop('histogram.bins.color[0]'),
-        valueMin: regl.prop('histogram.valueMin'),
         fade: regl.prop('fade'),
-        scale: regl.prop('scale'),
         bars: regl.prop('bars')
     },
     count: positions.length/2
@@ -57,7 +58,6 @@ const viewProps = self.viewProps = {
     histogram,
     framebuffer,
     fade: 0,
-    scale: 0,
     bars: 1
 };
 
@@ -70,6 +70,8 @@ const clear = {
 function frame({ drawingBufferWidth: w, drawingBufferHeight: h }) {
     framebuffer.resize(w, h);
     // histogram.bins.resize(w, h);
+
+    histogram.count = Math.round(w*h*scale);
 
     regl.clear(clear.framebuffer);
     regl.clear(clear.histogram);
@@ -87,9 +89,9 @@ function pollFrame() {
 
 document.addEventListener('mousemove', ({ clientX: x, clientY: y }) => {
     viewProps.fade = Math.max(0, Math.min(x/innerWidth, 1));
-    viewProps.scale = (1-(y/innerHeight))**5;
+    scale = (1-(y/innerHeight))**5;
 
-    console.log('fade:', viewProps.fade, 'scale:', viewProps.scale);
+    console.log('fade [input = 0, histogram = 1]:', viewProps.fade, 'scale:', scale);
 });
 
 document.addEventListener('click', () => {

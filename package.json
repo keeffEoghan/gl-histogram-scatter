@@ -19,7 +19,7 @@
     "docs": "rm -rf docs/ && parcel build ./example/index.html ./example/assets/**/* -d ./docs/ --public-url ./"
   },
   "dependencies": {
-    "@epok.tech/gl-screen-triangle": "../gl-screen-triangle",
+    "@epok.tech/gl-screen-triangle": "^1.1.0",
     "array-utils": "https://github.com/keeffEoghan/array-utils",
     "glsl-luma": "^1.0.1",
     "glsl-map": "^1.0.1"
