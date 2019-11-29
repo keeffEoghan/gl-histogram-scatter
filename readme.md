@@ -8,4 +8,4 @@ Allows custom operations for histogram heuristics.
 
 ## Usage
 
-
+[See the demo](https://keeffeoghan.github.io/gl-histogram-scatter) and [its source code](./example/).

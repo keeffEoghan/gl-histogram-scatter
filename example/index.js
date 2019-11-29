@@ -82,11 +82,6 @@ function frame({ drawingBufferWidth: w, drawingBufferHeight: h }) {
     drawView(viewProps);
 }
 
-function pollFrame() {
-    regl.poll();
-    regl.draw(frame);
-}
-
 document.addEventListener('mousemove', ({ clientX: x, clientY: y }) => {
     viewProps.fade = Math.max(0, Math.min(x/innerWidth, 1));
     scale = (1-(y/innerHeight))**5;
