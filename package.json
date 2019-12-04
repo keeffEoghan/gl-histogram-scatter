@@ -7,7 +7,7 @@
     "type": "git",
     "url": "git+https://github.com/keeffEoghan/gl-histogram-scatter.git"
   },
-  "author": "Eoghan O'Keeffe <epok.tech@gmail.com>",
+  "author": "Eoghan O'Keeffe <epok.tech@gmail.com> (https://epok.tech)",
   "license": "MIT",
   "engines": {
     "node": "10.16.3",
