@@ -1,4 +1,4 @@
-import { map, range } from 'array-utils';
+import { map, range } from '@epok.tech/array-utils';
 
 import defaultVert from './index.vert.glsl';
 import defaultFrag from './index.frag.glsl';
@@ -210,7 +210,6 @@ export function getHistogram(api, state, out = {}) {
         // Or values we can create one from with as much precision as available.
         const { texture, framebuffer, hasExtension } = api;
 
-        /** @todo For data scaling, consider [device limits](https://github.com/regl-project/regl/blob/gh-pages/API.md#device-capabilities-and-limits) */
         const {
                 dataType = ((hasExtension('OES_texture_float'))? 'float'
                     : ((hasExtension('OES_texture_half_float'))? 'half float'

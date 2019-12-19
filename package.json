@@ -1,6 +1,6 @@
 {
   "name": "@epok.tech/gl-histogram-scatter",
-  "version": "0.0.0",
+  "version": "1.0.1",
   "description": "Custom histograms using scatter approach in WebGL - BYORenderer (based on `regl`).",
   "main": "index.js",
   "repository": {
@@ -19,8 +19,8 @@
     "docs": "rm -rf docs/ && parcel build ./example/index.html ./example/assets/**/* -d ./docs/ --public-url ./"
   },
   "dependencies": {
+    "@epok.tech/array-utils": "^0.0.0",
     "@epok.tech/gl-screen-triangle": "^1.1.0",
-    "array-utils": "https://github.com/keeffEoghan/array-utils",
     "glsl-luma": "^1.0.1",
     "glsl-map": "^1.0.1"
   },
@@ -41,5 +41,9 @@
     "gpgpu",
     "postprocessing",
     "glsl"
-  ]
+  ],
+  "directories": {
+    "doc": "docs",
+    "example": "example"
+  }
 }
