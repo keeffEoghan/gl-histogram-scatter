@@ -35,8 +35,8 @@ varying vec4 color;
     #pragma glslify: dataToBin = require('./data-to-bin');
 #endif
 
-#ifndef binToColor
-    #pragma glslify: binToColor = require('./bin-to-color');
+#ifndef dataToColor
+    #pragma glslify: dataToColor = require('./data-to-color');
 #endif
 
 const float pointSize = 1.0;
@@ -56,17 +56,15 @@ void main() {
 
     #if outputMode == outputBins
         // Maps the vertex output `bin` to a point colour.
-        color = vec4(binToColor(bin, valueMin));
+        color = vec4(dataToColor(pixel, bin, valueMin,
+            mask, split, index, count));
 
         // Map from bin coordinates to NDC less point pixels size.
-        vec2 posXY = map(bin.xy, rangeBin.xy, rangeBin.zw, rangeNDC.xy, rangeNDC.zw);
+        vec2 xy = map(bin.xy, rangeBin.xy, rangeBin.zw, rangeNDC.xy, rangeNDC.zw);
 
         // Output the vertex position and size.
-        gl_Position = vec4(posXY, bin.zw);
+        gl_Position = vec4(xy, bin.zw);
     #else
-        gl_Position = vec4(map(uv, rangeBin.xy, rangeBin.zw, rangeNDC.xy, rangeNDC.zw),
-            0, 1);
-
         #if outputMode == outputTestRead
             // Output the data read, for testing.
             color = pixel;
@@ -74,6 +72,9 @@ void main() {
             // Output the derived bin, for testing.
             color = bin;
         #endif
+
+        gl_Position = vec4(map(uv, rangeBin.xy, rangeBin.zw, rangeNDC.xy, rangeNDC.zw),
+            0, 1);
     #endif
 
     gl_PointSize = pointSize;

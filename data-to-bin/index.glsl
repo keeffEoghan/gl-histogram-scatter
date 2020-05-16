@@ -2,7 +2,7 @@
  * Scatters the data into its bin applied to `gl_Position`, with:
  * - x: bin index (along x-axis).
  * - y: bin data-scaled row index (along y-axis).
- * - z: bin channel index.
+ * - z: bin depth (along z-axis).
  * - w: 1
  */
 
@@ -18,8 +18,8 @@
     #pragma glslify: binRow = require('./bin-row');
 #endif
 
-#ifndef binChannel
-    #pragma glslify: binChannel = require('./bin-channel');
+#ifndef binDepth
+    #pragma glslify: binDepth = require('./bin-depth');
 #endif
 
 #ifndef binW
@@ -32,7 +32,7 @@ vec4 dataToBin(in vec4 data, in vec4 mask, in vec3 split, in float index,
     return vec4(
         binIndex(data, mask, split, index, count),
         binRow(data, mask, split, index, count),
-        binChannel(data, mask, split, index, count),
+        binDepth(data, mask, split, index, count),
         binW(data, mask, split, index, count)
     );
 }
